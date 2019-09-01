@@ -13,27 +13,39 @@ export const useAuth = () => {
 	return useContext(authContext);
 };
 
+export const useAccess = ({ type, setUser, setSupport }) => {
+	const access = [
+		{
+			type: "client",
+			url: "/api/v1/clients-login",
+			token: "token_client",
+			setData: setUser,
+			isLogin: "isLoginClient"
+		},
+		{
+			type: "support",
+			url: "/api/v1/supports-login",
+			token: "token_support",
+			setData: setSupport,
+			isLogin: "isLoginSupport"
+		}
+	];
+	const types = access.filter(i => type.includes(i.type));
+	const { url, token, setData, isLogin } = types[0];
+	return { url, token, setData, isLogin };
+};
+
 function useProvideAuth() {
 	const [user, setUser] = useState(null);
 	const [support, setSupport] = useState(null);
+	const [isLoading, setLoading] = useState(true);
 
 	const signin = async ({ dataForm, type }) => {
-		const access = [
-			{
-				type: "client",
-				url: "/api/v1/clients-login",
-				token: "token_client",
-				setData: setUser("isLoginClient")
-			},
-			{
-				type: "support",
-				url: "/api/v1/supports-login",
-				token: "token_support",
-				setData: setSupport("isLoginSupport")
-			}
-		];
-		const types = access.filter(i => type.includes(i.type));
-		const { url, token , setData} = types[0];
+		const { url, token, setData, isLogin } = useAccess({
+			type,
+			setUser,
+			setSupport
+		});
 
 		const response = await axios
 			.post(url, dataForm)
@@ -44,7 +56,7 @@ function useProvideAuth() {
 				Cookies.set(token, res.data.access_token, {
 					expires: expiresIn
 				});
-				setData
+				setData(isLogin);
 			})
 			.catch(error => {
 				return error.response.data;
@@ -52,23 +64,30 @@ function useProvideAuth() {
 
 		return response;
 	};
+	const signout = () => {
+		Cookies.remove("token_client");
+		setUser(false);
+	};
+
 	useEffect(() => {
 		const clientCookie = Cookies.get("token_client");
 		const supportCookie = Cookies.get("token_support");
 		if (clientCookie) {
 			setUser("isLoginClient");
+			setLoading(false);
 		} else {
 			setUser(false);
+			setLoading(false);
 		}
 		if (supportCookie) {
 			setSupport("isLoginSupport");
+			setLoading(false);
 		} else {
 			setSupport(false);
+			setLoading(false);
 		}
-		// Cleanup subscription on unmount
 	}, []);
-	// console.log(user);
-	return { user, support, signin };
+	return { user, support, signin, isLoading, signout };
 }
 
 export default useProvideAuth;

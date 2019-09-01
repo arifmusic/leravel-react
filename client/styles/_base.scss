@@ -1,0 +1,90 @@
+//loader
+@keyframes loadBar {
+	0% {
+		left: 0%;
+	}
+	100% {
+		left: 110%;
+	}
+}
+
+//horizonntal-menu
+.scroll-menu-arrow {
+  padding: 0 0.5rem 2rem 0.5rem;
+  cursor: pointer;
+}
+
+//fild form
+.field {
+	padding: 2px;
+	text-align: center;
+	position: relative;
+	z-index: 1;
+	border-radius: 5px;
+	margin: 1rem 0;
+	width: 100%;
+	&_input {
+		font-size: 20px;
+		outline: none;
+		border: 1px solid #ccc;
+		z-index: 2;
+		padding: 0.8rem 0.7rem;
+		border-radius: 5px;
+		width: 100%;
+		color: #72777a;
+		&_password {
+			font-size: 20px;
+			outline: none;
+			border: 1px solid #ccc;
+			z-index: 2;
+			padding: 0.8rem 3rem 0.8rem 0.7rem;
+			border-radius: 5px;
+			width: 100%;
+			color: #72777a;
+		}
+	}
+	&_label {
+		position: absolute;
+		z-index: 2;
+		top: -10px;
+		left: 1em;
+		padding: 0 0.3rem;
+		background: #fff;
+	}
+
+	&_border {
+		position: absolute;
+		content: "";
+		top: 0;
+		left: 0;
+		width: 0%;
+		height: 0%;
+		border-radius: 5px;
+		background: #1a73e8;
+		z-index: -1;
+		transition: 0.2s ease-in-out;
+	}
+}
+
+.field input:focus ~ .field_label {
+	color: #1a73e8;
+}
+.field input:focus ~ .field_border {
+	width: 100%;
+	height: 100%;
+}
+
+//margin
+.use-margin-1{
+	margin-bottom: 1rem; 
+}
+.use-margin-1-5{
+	margin-bottom: 1.5rem; 
+}
+.use-margin-2{
+	margin-bottom: 2rem; 
+}
+.use-margin-2-5{
+	margin-bottom: 2.5rem; 
+}
+

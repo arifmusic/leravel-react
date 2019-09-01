@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { useAuth } from "./use-auth";
 
@@ -13,19 +13,25 @@ export default type => {
 	const [dataForm, setDataForm] = useState({
 		email: send,
 		password: "secret",
-		error: ""
+		error: "",
+		loading: false
 	});
 	function handleChange(e) {
 		setDataForm({ ...dataForm, [e.target.name]: e.target.value });
 	}
 	function handleSubmit(e) {
 		e.preventDefault();
+		setDataForm({ ...dataForm, loading: true });
 		auth.signin({ dataForm, type }).then(response => {
 			if (response) {
-				setDataForm({ ...dataForm, error: response.errors[0] });
+				setDataForm({
+					...dataForm,
+					loading: false,
+					error: response.errors[0]
+				});
 			}
 		});
 	}
-	const { error } = dataForm;
-	return [handleSubmit, handleChange, error];
+	const { error, loading } = dataForm;
+	return [handleSubmit, handleChange, error, loading];
 };

@@ -1,24 +1,52 @@
-import React from "react";
-import { Switch } from "react-router-dom";
+import { lazy } from "react";
 
-import routes from "./routes";
+//client
+import SignInClient from  "~/pages/ClientPage/auth/signIn";
+const DashboardClient = lazy(() => import("~/pages/ClientPage/dashboard"));
+const SignatureClient = lazy(() => import("~/pages/ClientPage/signature"));
 
-import Public from "./route/public";
-import Split from "./route/split";
-import Private from "./route/private";
-import NotFound from "./route/notFound";
+//support
+import SignInSupport from "~/pages/SupportPage/auth/signIn";
+const DashboardSupport = lazy(() => import("~/pages/SupportPage/dashboard"));
+const SignatureSupport = lazy(() => import("~/pages/SupportPage/signature"));
 
-export default () => (
-	<Switch>
-		{routes.map(route => {
-			if (route.auth && route.fallback) {
-				return <Split key={route.path} {...route} />;
-			} else if (route.auth) {
-				return <Private key={route.path} {...route} />;
-			} else if (route.exact) {
-				return <Public key={route.path} {...route} />;
-			}
-			return <NotFound key={route.path} {...route} />;
-		})}
-	</Switch>
-);
+import NoMatch from "~/pages/NoMatch";
+
+export default [
+  {
+    type: "client",
+    path: "/client-home",
+    exact: true,
+    auth: true,
+    component: DashboardClient,
+    fallback: SignInClient
+  },
+  {
+    type: "client",
+    path: "/client-open-tiket",
+    exact: true,
+    auth: true,
+    component: SignatureClient
+  },
+  {
+    type: "support",
+    path: "/support",
+    exact: true,
+    auth: true,
+    component: DashboardSupport,
+    fallback: SignInSupport
+  },
+  {
+    type: "support",
+    path: "/support/signature",
+    exact: true,
+    auth: true,
+    component: SignatureSupport
+  },
+  {
+    path: "",
+    exact: false,
+    auth: false,
+    component: NoMatch
+  }
+];

@@ -1,30 +1,49 @@
 import React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import useForm from "~/useHooks/use-form";
-import { useAuth } from "~/useHooks/use-auth.js";
 
-const SignIn = props => {
+import Progress from "~/components/Progress";
+import FormLogin from "~/components/Form/formLogin";
+import FooterLogin from "~/components/Footer/footerLogin";
+
+export default props => {
 	const type = "client";
-	const asdf = useAuth();
-	const [handleSubmit, handleChange, error] = useForm(type);
+	const [handleSubmit, handleChange, error, loading] = useForm(type);
+
 	return (
 		<div>
-			<h2>Client</h2>
-			<h3>
-				{asdf.user ? (
-					<React.Fragment>Sedang Log In</React.Fragment>
-				) : (
-					"Sedang Log Out"
-				)}
-			</h3>
-			{error && error}
-			<form>
-				<input onChange={handleChange} name="email" />
-				<input onChange={handleChange} name="password" />
-				<button onClick={handleSubmit}>submit</button>
-			</form>
+			<Box>
+				<FormLogin
+					handleSubmit={handleSubmit}
+					handleChange={handleChange}
+					error={error}
+				/>
+			<FooterLogin />
+			</Box>
+			{loading && <BlockUi><Progress /></BlockUi>}
 		</div>
 	);
 };
 
-export default SignIn;
+const Box = styled.div`
+	background: #fff;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 450px;
+	box-sizing: border-box;
+	max-width: 100%;
+`;
+
+const BlockUi = styled.div`
+	width: 100%;
+	height: 100%;
+	background-color: hsla(360, 100%, 100%, 0.54);
+	top: 50%;
+	position: fixed;
+	left: 50%;
+	transform: translate(-50%, -50%);
+`;

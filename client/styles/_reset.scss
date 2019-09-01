@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background-color: #fff;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  color: #72777a;
+  font-size: 14px;
+}
+
+a {
+  text-decoration: none;
+  transition: all 0.3s ease-in-out 0s;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}

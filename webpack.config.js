@@ -50,14 +50,14 @@ module.exports = env => {
           })
         ]
       }),
-      new CopyWebpackPlugin([{ from: "./client/static/favicon.png" }])
+      new CopyWebpackPlugin([{ from: "./client/static/images/favicon.png" }])
     ]
   };
   const optimization = isDevMode ? optimization_dev : optimization_prod;
   return {
     mode: webpackMode,
     devtool: isDevMode ? "inline-source-map" : "source-map",
-    entry: "./client/index.js",
+    entry: ["@babel/polyfill", "./client/index.js"],
     output: {
       filename: "js/app.js",
       path: path.resolve(__dirname, "public"),

@@ -1,20 +1,34 @@
-import React, { Suspense } from "react";
-import { HashRouter } from "react-router-dom";
+import React from "react";
+import { HashRouter, Switch } from "react-router-dom";
 
-import { ProvideAuth } from "./useHooks/use-auth.js";
+import { ProvideAuth } from "./useHooks/use-auth";
 
-import Header from "./components/header.js";
-import Routes from "./routes";
+import routes from "./routes";
+import Public from "./routes/route/public";
+import Split from "./routes/route/split";
+import Private from "./routes/route/private";
+import NotFound from "./routes/route/notFound";
+
+import "./styles/main.scss";
 
 export default props => {
 	return (
-		<HashRouter>
-			<ProvideAuth>
-				<Header />
-				<Suspense fallback={<div>Loading...</div>}>
-					<Routes />
-				</Suspense>
-			</ProvideAuth>
-		</HashRouter>
+		<ProvideAuth>
+			<HashRouter>
+				<Switch>
+					{routes.map((route, i) => {
+						if (route.auth && route.fallback) {
+							return <Split key={i} {...route} />;
+						} else if (route.auth) {
+							return <Private key={i} {...route} />;
+						} else if (route.exact) {
+							return <Public key={i} {...route} />;
+						}
+						return <NotFound key={i} {...route} />;
+					})}
+				</Switch>
+			</HashRouter>
+		</ProvideAuth>
 	);
 };
+

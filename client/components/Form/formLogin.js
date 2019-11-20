@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 import Logo from "~/components/Logo";
-import Fild from "~/components/Fild/fild";
+import Fild from "~/components/Fild/fildInput";
 import FildPassword from "~/components/Fild/fildPassword";
 import ButtonLogin from "~/components/Button/buttonLogin";
 

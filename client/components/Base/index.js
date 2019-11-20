@@ -1,51 +1,34 @@
 import React, { Suspense } from "react";
 import styled from "styled-components";
+import { withRouter } from "react-router-dom";
 
 import useWindowSize from "~/useHooks/use-window-size";
+import usePath from "~/useHooks/use-path-name";
 
 import Header from "../Header";
-import SideBar from "../SideBar";
 import Footer from "../Footer";
 import Progress from "../Progress";
 
-export default ({ children }) => {
+const Base =  ({ children, location, ...props }) => {
 	const size = useWindowSize();
 	return (
 		<div>
-			<Header />
-			<Content>
-				{size.width >= 1023 && (
-					<MainSideBar>
-						<SideBar />
-					</MainSideBar>
-				)}
-				<MainContent size={size.width}>
-					<Main>
-						<Suspense fallback={<Progress />}>{children}</Suspense>
-					</Main>
-				</MainContent>
+			<Header location={location.pathname} />
+			<Content location={usePath(location.pathname)}>
+				<Suspense fallback={<Progress />}>{children}</Suspense>
 			</Content>
 			<Footer />
 		</div>
 	);
 };
 
+export default withRouter(Base);
+
 const Content = styled.div`
-	padding-top: 6rem;
+	min-height: calc(100vh - 2.5rem);
+	padding-top: ${prop=>prop.location ? "5rem" : "8rem"};
+	margin: 0 auto;
+	max-width: 690px;
+	box-sizing: border-box;
 `;
 
-const MainSideBar = styled.div`
-	flex: 0 0 auto;
-`;
-
-const MainContent = styled.div`
-	flex: 1 1 auto;
-	overflow: auto;
-	min-height: calc(100vh - 9rem);
-	padding: ${props => (props.size >= 1023 ? "0 2rem 0 22rem" : "0.5rem")};
-`;
-
-const Main = styled.div`
-	width: 100%;
-	display: flex;
-`;

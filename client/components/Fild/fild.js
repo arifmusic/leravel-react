@@ -1,11 +1,10 @@
 import React from "react";
 
-export default () => {
+export default ({name, label}) => {
 	return (
-		<div className="field">
-			<input type="text" name="firstname" className="field_input" />
-			<div className="field_border" />
-			<label className="field_label">email</label>
+		<div className="base-field">
+			<input type="text" id={name} required />
+			<label htmlFor={name} >{label}</label>
 		</div>
 	);
 };

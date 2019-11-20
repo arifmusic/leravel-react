@@ -1,3 +1,60 @@
+//fild base input
+
+.base-field {
+	position: relative;
+	width: 250px;
+	height: 44px;
+	line-height: 44px;
+	width: 100%;
+	margin-bottom: 2rem;
+	& label {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		color: #d3d3d3;
+		transition: 0.2s all;
+		cursor: text;
+	}
+	& input,
+	textarea,
+	select {
+		width: 100%;
+		border: 0;
+		outline: 0;
+		padding: 0.5rem 0;
+		border-bottom: 1px solid #c6c6c6;
+		box-shadow: none;
+		font-size: 16px;
+		&:invalid {
+			outline: 0;
+		}
+		&:focus,
+		valid {
+			border-bottom: 2px solid #1a73e8;
+		}
+		&:focus ~ label {
+			font-size: 14px;
+			top: -24px;
+			color: #1a73e8;
+		}
+		&:valid ~ label {
+			font-size: 14px;
+			top: -24px;
+		}
+	}
+	& textarea {
+		resize: none;
+		overflow: hidden;
+		&:focus ~ label {
+			top: -34px;
+		}
+		&:valid ~ label {
+			top: -34px;
+		}
+	}
+}
+
 //loader
 @keyframes loadBar {
 	0% {
@@ -10,8 +67,8 @@
 
 //horizonntal-menu
 .scroll-menu-arrow {
-  padding: 0 0.5rem 2rem 0.5rem;
-  cursor: pointer;
+	padding: 0 0.5rem 2rem 0.5rem;
+	cursor: pointer;
 }
 
 //fild form
@@ -75,16 +132,15 @@
 }
 
 //margin
-.use-margin-1{
-	margin-bottom: 1rem; 
+.use-margin-1 {
+	margin-bottom: 1rem;
 }
-.use-margin-1-5{
-	margin-bottom: 1.5rem; 
+.use-margin-1-5 {
+	margin-bottom: 1.5rem;
 }
-.use-margin-2{
-	margin-bottom: 2rem; 
+.use-margin-2 {
+	margin-bottom: 2rem;
 }
-.use-margin-2-5{
-	margin-bottom: 2.5rem; 
+.use-margin-2-5 {
+	margin-bottom: 2.5rem;
 }
-

@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { FiBell } from "react-icons/fi";
 
 import useOutside from "~/useHooks/use-outside";
@@ -17,6 +18,9 @@ export default () => {
 	useOutside(wrapperRef, setDrob);
 	return (
 		<Box>
+			<Link to="/client-home">
+				<Tiket>Tiket</Tiket>
+			</Link>
 			<Notif>
 				<FiBell title="notification" />
 			</Notif>
@@ -33,13 +37,29 @@ const Box = styled.ul`
 	align-items: center;
 `;
 
+const Tiket = styled.li`
+	margin-left: 1.5rem;
+	cursor: pointer;
+	color: #72777a;
+	&:hover {
+		color: #1a73e8;
+	}
+`;
+
 const Notif = styled.li`
 	font-size: 22px;
 	margin-left: 1.5rem;
+	cursor: pointer;
+	&:hover {
+		color: #1a73e8;
+	}
 `;
 
 const User = styled.li`
 	margin-left: 1.5rem;
+	&:hover {
+		color: #1a73e8;
+	}
 `;
 
 const Avatar = styled.img`

@@ -3,7 +3,7 @@ import { lazy } from "react";
 //client
 import SignInClient from  "~/pages/ClientPage/auth/signIn";
 const DashboardClient = lazy(() => import("~/pages/ClientPage/dashboard"));
-const SignatureClient = lazy(() => import("~/pages/ClientPage/signature"));
+const OpenTiket = lazy(() => import("~/pages/ClientPage/OpenTiket"));
 
 //support
 import SignInSupport from "~/pages/SupportPage/auth/signIn";
@@ -26,7 +26,7 @@ export default [
     path: "/client-open-tiket",
     exact: true,
     auth: true,
-    component: SignatureClient
+    component: OpenTiket
   },
   {
     type: "support",
